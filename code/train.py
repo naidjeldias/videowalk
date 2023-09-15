@@ -17,6 +17,8 @@ from data.video import VideoList
 from model import CRW
 import utils
 
+from torchview import draw_graph
+import graphviz
 
 def train_one_epoch(model, optimizer, lr_scheduler, data_loader, device, epoch, print_freq,
     vis=None, checkpoint_fn=None):
@@ -152,7 +154,9 @@ def main(args):
 
     print("Creating model")
     model = CRW(args, vis=vis).to(device)
-    print(model)
+    graphviz.set_jupyter_format('png')
+    model_graph = draw_graph(model, input_size=(args.batch_size,4,3,256,256), device='cuda')
+    model_graph.visual_graph.render(format='png')
     
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 
