@@ -130,7 +130,7 @@ class CRW(nn.Module):
         B, C, T, N = q.shape
 
         if just_feats:
-            h, w = np.ceil(np.array(x.shape[-2:]) / self.map_scale).astype(np.int)
+            h, w = np.ceil(np.array(x.shape[-2:]) / self.map_scale).astype(int)
             return (q, mm) if _N > 1 else (q, q.view(*q.shape[:-1], h, w))
 
         #################################################################
