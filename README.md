@@ -72,7 +72,13 @@ You can also provide `--data-path` with a file with a list of directories of ima
 
 ### Visualization
 By default, the training script will log diagnostics to `wandb` and data visualizations to `visdom`.
+```
+visdom
+```
 
+```
+python -W ignore train.py --data-path /media/nigel/copel/kinetics-dataset/ --frame-aug grid --dropout 0.1 --clip-len 4 --temp 0.05 --model-type scratch --workers 16 --batch-size 6  --cache-dataset --data-parallel  --lr 0.0001 --visualize --server localhost --port 8097
+```
 
 ### Pretrained Model
 You can find the model resulting from the training command above at `pretrained.pth`.
