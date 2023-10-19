@@ -47,6 +47,29 @@ python -W ignore train.py --data-path /path/to/kinetics/ \
 --cache-dataset --data-parallel --visualize --lr 0.0001
 ```
 
+### Training with image sequence
+You must provide a list in a text file with the following info
+```
+/path/to/dir1 number_of_frames #example
+/path/to/dir2 104
+/path/to/dir3 134
+/path/to/dir4 23
+...
+```
+and then use it as argument with `--data-path` flag, for example:
+
+`file.txt`
+```
+<DATASET_PATH>/rgbd_dataset_freiburg3_walking_halfsphere/rgb 1067
+<DATASET_PATH>rgbd_dataset_freiburg3_walking_rpy/rgb 910
+<DATASET_PATH>/rgbd_dataset_freiburg3_walking_xyz/rgb 859
+```
+training command
+```
+python -W ignore train.py --data-path /<DATASET_PATH>/file.txt --frame-aug grid --dropout 0.1 --clip-len 4 --temp 0.05 --model-type imagenet18 --workers 16 --batch-size 6  --cache-dataset --data-parallel  --lr 0.0001
+```
+
+
 This yields a model with performance on DAVIS as follows (see below for evaluation instructions), provided as `pretrained.pth`:
 ```
  J&F-Mean    J-Mean  J-Recall  J-Decay    F-Mean  F-Recall   F-Decay
@@ -77,7 +100,7 @@ visdom
 ```
 
 ```
-python -W ignore train.py --data-path /media/nigel/copel/kinetics-dataset/ --frame-aug grid --dropout 0.1 --clip-len 4 --temp 0.05 --model-type scratch --workers 16 --batch-size 6  --cache-dataset --data-parallel  --lr 0.0001 --visualize --server localhost --port 8097
+python -W ignore train.py --data-path /<DATASET_PATH>/kinetics-dataset/ --frame-aug grid --dropout 0.1 --clip-len 4 --temp 0.05 --model-type scratch --workers 16 --batch-size 6  --cache-dataset --data-parallel  --lr 0.0001 --visualize --server localhost --port 8097
 ```
 
 ### Pretrained Model
