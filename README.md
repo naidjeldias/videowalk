@@ -64,9 +64,15 @@ and then use it as argument with `--data-path` flag, for example:
 <DATASET_PATH>rgbd_dataset_freiburg3_walking_rpy/rgb 910
 <DATASET_PATH>/rgbd_dataset_freiburg3_walking_xyz/rgb 859
 ```
-training command
+#### training command
+Pathes mode
 ```
 python -W ignore train.py --data-path /<DATASET_PATH>/file.txt --frame-aug grid --dropout 0.1 --clip-len 4 --temp 0.05 --model-type imagenet18 --workers 16 --batch-size 6  --cache-dataset --data-parallel  --lr 0.0001
+```
+
+Full image mode
+```
+python -W ignore train.py --data-path /media/nigel/copel/kinetics-dataset/  --dropout 0.1 --clip-len 4 --temp 0.05 --model-type scratch --workers 16 --batch-size 4  --cache-dataset --lr 0.0001 --frame-transforms crop
 ```
 
 

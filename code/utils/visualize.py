@@ -71,11 +71,10 @@ def draw_matches(x1, x2, i1, i2):
 
         scale = i1.shape[-2] / h
         grid = torch.stack([torch.arange(0, h)[None].repeat(h, 1), torch.arange(0, h)[:, None].repeat(1, h)])
-        
         grid = grid.view(2, -1)
         grid = grid * scale + scale//2
 
-        kps = [cv2.KeyPoint(grid[0][i], grid[1][i], 1) for i in range(grid.shape[-1])]
+        kps = [cv2.KeyPoint(float(grid[0][i]), float(grid[1][i]), 1) for i in range(grid.shape[-1])]
 
         matches = sorted(matches, key = lambda x:x.distance)
 
@@ -178,8 +177,8 @@ def vis_flow_plt(u, v, x1, x2, A):
     im = ax.imshow((I.transpose(1,2,0)),)
     
     C = cm.jet(torch.nn.functional.softmax((A * A.log()).sum(-1).cpu(), dim=-1))
-    ax.quiver(my[skip], mx[skip], flows[...,0][skip], flows[...,1][skip]*-1, C)#, scale=1, scale_units='dots')
-    # ax.quiver(mx[skip], my[skip], flows[...,0][skip], flows[...,1][skip])
+    # ax.quiver(my[skip], mx[skip], flows[...,0][skip], flows[...,1][skip]*-1, C)#, scale=1, scale_units='dots')
+    ax.quiver(mx[skip], my[skip], flows[...,0][skip], flows[...,1][skip])
 
     return plt
     
