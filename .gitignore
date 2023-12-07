@@ -2,3 +2,7 @@
 **.png
 **.gv
 **.svg
+.vscode/
+code/checkpoints/
+code/wandb/
+wandb/
